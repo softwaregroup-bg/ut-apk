@@ -1,0 +1,32 @@
+.statusActionButtonDisabled,
+.statusActionButton{
+    border: 1px solid #ccc;
+    color: #444;
+    background: #f4f4f4;
+    border-radius: 4px;
+    padding: 4px 15px;
+}
+
+.statusActionButton:hover{
+    border-color: #999;
+    color: #000;
+}
+
+.statusActionButtonDisabled{
+    opacity: .65;
+}
+
+.statusActionButtonDisabled:hover{
+    cursor: not-allowed;
+    border-color: #999;
+    color: #000;
+}
+
+.actionStatusButtonPad{
+    width: 10px;
+    height: 1px;
+    display: inline-block;
+}
+.actionStatusButtonWrap{
+    display: inline-block;
+}

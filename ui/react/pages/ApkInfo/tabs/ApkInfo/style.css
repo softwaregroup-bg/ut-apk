@@ -1,0 +1,347 @@
+.inputRow {
+    padding: 5px 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.inputRow:last-child {
+    border: none;
+}
+
+.inputRowLabel {
+    flex-basis: 30%;
+}
+.inputRowInput {
+    flex-basis: 70%;
+}
+.flatButtonOverride {
+    width: 100%;
+    height: 26px;
+    line-height: 26px;
+    padding-left: 8px;
+    text-align: left;
+    font-family: 'Roboto, sans-serif';
+    font-size: 15px;
+    color: #595959;
+}
+
+.filterFloatLeft {
+    float: left;
+    width: 20%;
+}
+
+.filterFloatRight {
+    float: right;
+    width: 35%;
+}
+
+.sideMenuButtonsWrapper {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.sideMenuButton {
+    width: 100%;
+    margin: 5px 0;
+}
+
+.filterCustomSearch{
+    flex-shrink: 1;
+    flex-grow: 1;
+    flex-basis: auto;
+    max-width: 420px;
+    /*min-width: 350px;*/
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.filterWrap, .buttonWrap, .actionWrap {
+    display: flex;
+    width: auto;
+    justify-content: flex-end;
+}
+
+.filterSeparated {
+    margin-right: 20px;
+    flex-shrink: 1;
+    flex-grow: 1;
+    flex-basis: auto;
+    max-width: 240px;
+    /*min-width: 190px;*/
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.actionSeparated {
+    margin-right: 13px;
+    float: left;
+}
+
+.clearFilterWrap {
+    margin-left: 20px;
+}
+
+.inputWrapper {
+    padding: 5px 0;
+}
+
+.inputWrapper:first-child {
+    padding: 20px 0 5px 0;
+}
+
+.sideNote {
+    width: 70%;
+    color: #CCC;
+    margin-left: auto;
+}
+
+.identityContainer {
+    display: flex;
+    height: 100%;
+}
+
+.customerProfileContainer {
+    display: flex;
+    flex: 1;
+}
+
+.container {
+    display: flex;
+    height: 100%;
+    margin: 0 20px;
+}
+
+.wrapper {
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-around;
+  cursor: default;
+}
+
+.box {
+  height: 100%;
+  display: flex;
+  flex-basis: 49%;
+  flex-direction: column;
+  border: 1px solid #d6d6d6;
+}
+
+.header {
+  border-bottom: 1px solid #d6d6d6;
+  background: #f9f9f9;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 16px;
+  color: #595959;
+  padding: 20px;
+}
+
+.content {
+  background: #fff;
+  padding: 10px 20px;
+  flex: 1;
+  overflow-x: hidden;
+}
+
+.contentWrapper {
+    flex: 1;
+    display: flex;
+    margin-right: 20px;
+    flex-direction: column;
+}
+
+.inputOuterWrapper {
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.contentBox {
+  padding: 10px 80px !important;
+}
+
+.contentBoxWrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.contentBoxWrapper:nth-child(1) {
+    margin-right: 20px
+}
+
+.profileInformationWrapper {
+    flex-basis: 45%;
+    margin-right: 25px;
+}
+
+.datePickerWrapper {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.datePickerWrapper .datePickerLabel {
+    display: inline-block;
+    width: 30%;
+    font-size: 14px;
+    color: #595959;
+}
+
+.datePickerWrapper .datePickerContainer {
+    display: inline-block;
+    width: 70%;
+}
+
+.radioWrapper {
+    padding: 10px 0;
+}
+
+.noResultsMessage {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: space-around;
+  color: #565656;
+  font-size: 20px;
+}
+
+.rolesWrapper {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 0;
+}
+
+.rolesLabel {
+  flex-basis: 30%;
+}
+
+.assignedRole {
+  flex-basis: 70%;
+}
+
+/*Images styles*/
+.imagesContainer {
+    display: flex;
+    flex-basis: 250px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.preview {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #FFF;
+    cursor: pointer;
+}
+
+.previewBig {
+    composes: preview;
+    width: 190px;
+    height: 190px;
+}
+
+.previewSmall {
+    composes: preview;
+    width: 190px;
+    height: 130px;
+}
+
+.profileInformationWrapper {
+    flex-basis: 45%;
+    margin-right: 20px;
+}
+
+.datePickerWrapper {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.datePickerWrapper .datePickerLabel {
+    display: inline-block;
+    width: 30%;
+    font-size: 14px;
+    color: #595959;
+}
+
+.datePickerWrapper .datePickerContainer {
+    display: inline-block;
+    width: 70%;
+}
+
+.radioWrapper {
+    padding: 10px 0;
+}
+
+.imageWrapper {
+    padding: 0 20px 20px 20px;
+}
+
+.statusWrapper {
+    text-align: center;
+    background-color: #00A44D;
+    color: #fff;
+    width: 50%;
+    margin: 0 auto;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+
+/* Contact Info Tab styles*/
+.contactInfoWrapperInner {
+    padding: 15px;
+}
+
+.boxWrapper {
+    display: block;
+    padding: 13px;
+}
+.contactInfoWrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.mainWrap {
+    margin: 0 auto;
+    margin-bottom: 40px;
+}
+
+.customSearchDropdown {
+    float: left;
+    width: 40%;
+    background-color: #F4F4F4;
+}
+.customSearchDropdown svg {
+    background-color: transparent;
+    fill: #000 !important;
+}
+.customSearchTextField {
+    float: left;
+    width: 60%;
+}
+.pagination {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+#referral {
+    min-Width: 925px;
+    padding: 13px;
+}
+.filter {
+    float: right;
+    min-Width: 250px;
+    margin-Left: 10px;
+    margin-Bottom: 23px;
+}
+
+.clearFilter {
+    float: right;
+    padding-Left: 20px;
+}
