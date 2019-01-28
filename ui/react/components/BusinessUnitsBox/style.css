@@ -1,0 +1,103 @@
+@import './default-config.css';
+@import 'config.css';
+
+.businessUnitBox {
+    padding: 0px 10px;
+    border: 1px solid var(--ut-user-standardBusinessUnitBoxColor);
+    border-radius: 3px;
+    color: var(--ut-user-standardBusinessUnitBoxColor);
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    width:100%!important;
+}
+
+.businessUnitBoxPrimary {
+    background-color: var(--ut-user-standardBusinessUnitBoxColor);
+    color: #ffffff;
+}
+
+.businessUnitStar {
+    display: inline-block;
+    width: 22px;
+    height: 30px;
+    vertical-align: middle;
+    background-size: 18px;
+    background-repeat: no-repeat;
+    background-position-y: 5px;
+    background-image: url('./images/prime_bu_normal.png');
+}
+
+.businessUnitPrimaryStar {
+    background-image: url('./images/prime_bu_selected.png');
+}
+
+.unitsWrapper {
+    padding: 15px 0;
+    padding-bottom: 20px;
+}
+
+label {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+
+.error {
+    color: #ff3333 !important;
+    background: #FFF2F2;
+    border: 1px solid #ff3333;
+    padding: 10px;
+}
+
+.toggle {
+    width: 18px;
+    height: 18px;
+    background-size: 18px;
+    background-repeat: no-repeat;
+    /*background-position-y: 2px;*/
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.toggleExpanded {
+    background-image: url('./images/minus_tree_collapsed.png');
+}
+
+.toggleCollapsed {
+    background-image: url('./images/plus_tree_collapsed.png');
+}
+
+.infoText {
+    color: #999999;
+}
+
+.infoText:first-of-type {
+    margin-top: 20px;
+}
+
+.activeBUsWrapperInModal {
+    padding-bottom: 15px;
+    padding-top: 10px;
+    border-bottom: 1px solid #D6D6D6;
+}
+
+.displayNone {
+    display: none;
+}
+
+.tableCell {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.activeLink {
+    color: var(--ut-user-standardBusinessUnitActiveLinkTextColor);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.activeLink:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

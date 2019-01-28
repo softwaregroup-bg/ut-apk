@@ -1,0 +1,39 @@
+.buttonsWrap {
+    float: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+.buttons {
+    flex: 1;
+}
+.buttons > div {
+    display: inline-block;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+}
+.buttons > div:last-child {
+    margin-right: 0;
+}
+.buttonDelete {
+    background-image: url('./icons/delete.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.buttonSettings {
+    background-image: url('./icons/settings.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.buttonDeleteDisabled {
+    background-image: url('./icons/delete_disabled.png');
+    cursor: default;
+}
+.buttonSettingsDisabled {
+    background-image: url('./icons/settings_disabled.png');
+    cursor: default;
+}

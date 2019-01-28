@@ -214,19 +214,6 @@ class ApkInfo extends Component {
                 <div className={styles.contentBoxWrapper}>
                     <LocalTitledContentBox
                       title='Apk Info' >
-                        <div className={styles.inputRow} >
-                            <span className={styles.inputRowLabel}><Text>Apk Name</Text></span>
-                            <div className={styles.inputRowInput}>
-                                <DropdownRenderer open={this.state.isDialogOpen} onClick={this.handleDialogOpen} disabled={readonly}>
-                                    <FlatButton
-                                      className={styles.flatButtonOverride}
-                                      disabled={readonly}
-                                      style={{ height: '26px', lineHeight: '26px', textAlign: 'left', paddingLeft: '8px' }}>
-                                        {this.state.isDialogOpen ? 'Select' : apkName}
-                                    </FlatButton>
-                                </DropdownRenderer>
-                            </div>
-                        </div>
                         {this.renderInputs(config['apkInfo'].inputs)}
                         {/* this.getValue('account', this.props).map(account => <div>{account.get('accountNumber') + ' -- ' + account.get('currencyName')}</div>) */}
                         {this.permissions.add && <Dropzone onDrop={this.onDrop}>
@@ -239,8 +226,8 @@ class ApkInfo extends Component {
                                 <input {...getInputProps()} />
                                 {
                                     isDragActive ?
-                                    <p>Drop apk file here...</p> :
-                                    <p>Try dropping an apk file here, or click to select the apk file to upload.</p>
+                                    <h3><Text>Drop apk file here...</Text></h3> :
+                                    <h3><Text>Try dropping an apk file here, or click to select the apk file to upload.</Text></h3>
                                 }
                                 </div>
                             )

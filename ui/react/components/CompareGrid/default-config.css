@@ -1,0 +1,6 @@
+:root {
+    /*colors*/
+    --ut-agent-standardCompareGridNewAgentTextColor: #2881ec;
+    --ut-agent-standardCompareGridBackgroundColor: #fff;
+    --ut-agent-standardCompareGridRejectTextColor: #2881ec;
+}

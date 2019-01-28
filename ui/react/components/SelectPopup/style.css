@@ -1,0 +1,28 @@
+/* Common */
+@import './default-config.css';
+@import 'config.css';
+
+/* Dropdown */
+.dropdownWrap {
+    width: 100%;
+    position: relative;
+    border: 1px solid #D6D6D6;
+    height: 30px;
+}
+.dropdownWrapDisabled {
+    cursor: not-allowed;
+}
+
+.dropdownIcon {
+    /* material ui icons inline these props
+        width: 26px;
+        height: 26px;
+        color: #fff;
+    */
+    background-color: var(--ut-front-react-standardDropdownIconColor)
+}
+
+.dropdownIconDisabled {
+    background-color: #D7D6D6;
+}
+

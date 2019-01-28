@@ -6,10 +6,10 @@ export const config = {
     apkInfo: {
         title: 'APK Info',
         inputs: [
-            { key: 'apkName', type: 'text', label: 'APK Name', readonly: true },
-            { key: 'devices', type: 'text', label: 'Devices', readonly: true },
-            { key: 'imeis', type: 'text', label: 'IMEIs', readonly: true },
-            { key: 'androidVersions', type: 'text', label: 'Android Versions', readonly: true }
+            { key: 'apkName', type: 'text', label: 'APK Name', readonly: false },
+            { key: 'devices', type: 'text', label: 'Devices', readonly: false },
+            { key: 'imeis', type: 'text', label: 'IMEIs', readonly: false },
+            { key: 'androidVersions', type: 'text', label: 'Android Versions', readonly: false }
         ]
     }
 };

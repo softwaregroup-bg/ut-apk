@@ -1,0 +1,14 @@
+
+.fetchTableContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.fetchTable {
+    flex-grow: 1;
+}
+
+.fetchPagination {
+    height: 24px;
+    margin-top: 8px;
+}

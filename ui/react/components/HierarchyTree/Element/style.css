@@ -1,0 +1,84 @@
+.ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-left: 40px;
+}
+.ulRoot {
+    margin-left: 20px;
+}
+.li {
+    list-style: none;
+    line-height: 0;
+    margin: 0;
+    display: block;
+    border-left: 1px solid #d6d6d6;
+}
+.li:last-child {
+    border-left: none;
+}
+.li:last-child:before {
+    border-left: 1px solid #d6d6d6;
+}
+.li:before {
+    position: relative;
+    height: 34px;
+    width: 20px;
+    color: white;
+    border-bottom: 1px solid #d6d6d6;
+    content: "";
+    display: inline-block;
+    line-height: 0;
+    left: 0px;
+    vertical-align: top;
+}
+.liRoot:before,
+.liRoot:last-child:before {
+    display: none;
+}
+.elementPlaceholder {
+    line-height: normal;
+    display: inline-block;
+    width: calc(100% - 20px);
+    height: 58px;
+    overflow: hidden;
+    position: relative;
+}
+.elementWrap {
+    height: 48px;
+    width: 100%;
+    padding: 0 20px;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid #d6d6d6;
+    background: #f9f9f9;
+}
+.elementIsRoot {
+    width: 100%;
+}
+.elementIsRoot:before,
+.elementIsRoot:last-child:before{
+    display: none;
+}
+.element {
+    overflow: hidden;
+}
+.elementNameLeft {
+    float: left;
+    font-weight: 700;
+    color: #595959;
+}
+.elementNameLeftOwner {
+    float: left;
+    margin-left: 20px;
+    color: #999;
+}
+.elementNameRight {
+    float: right;
+    line-height: 0;
+    min-width: 400px;
+    padding-right: 20px;
+}

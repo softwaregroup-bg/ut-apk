@@ -1,0 +1,64 @@
+@import './default-config.css';
+@import 'config.css';
+
+.wrapper {
+    background: white;
+    height: 100%;
+    border-top: none;
+    padding: 0;
+    margin-bottom: 40px;
+}
+
+.accordion {
+
+    margin: 0;
+    padding: 0 !important;
+}
+
+.accordionTitle{
+    font-size: 1.4em;
+    background: white;
+    padding: 20px 17px;
+}
+
+.accordionBody {
+    background: #ECECEC;
+    padding: 20px;
+}
+
+.container {
+    margin: 0 auto;
+}
+
+.half {
+    display: inline-block;
+    width: 50%;
+}
+
+.whole {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.titledBoxBody {
+    padding: 0 15px !important;
+}
+
+.titleBoxTitle {
+    border-bottom: none !important;
+}
+
+.rejectTextField {
+    background: var(--ut-agent-standardCompareGridBackgroundColor);
+    text-align: center;
+    color: var(--ut-agent-standardCompareGridRejectTextColor);
+    padding: 25px;
+    margin: 0;
+}
+.newAgent {
+    background: var(--ut-agent-standardCompareGridBackgroundColor);
+    text-align: center;
+    color: var(--ut-agent-standardCompareGridNewAgentTextColor);
+    padding: 25px;
+    margin: 0;
+}

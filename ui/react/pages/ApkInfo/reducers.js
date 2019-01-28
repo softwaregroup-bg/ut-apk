@@ -85,7 +85,7 @@ function apkInfo(state = DEFAULT_STATE, action) {
             return state.setIn([activeTabMode, activeTabId, 'errors'], newErrors);
         case actionTypes.FETCH_AVAILABLE_BUSINESS_UNITS:
             if (action.methodRequestState === FINISHED && !action.error) {
-                const organization = action.result.organization ? parseAgentTypes(action.result.organization) : [];
+                const organization = action.result.organization ? action.result.organization : [];
                 return state.setIn(['common', 'dropdownData', 'organization'], fromJS(organization).map(o => new Map({actorId: o.get('id')})));
             }
             return state;
