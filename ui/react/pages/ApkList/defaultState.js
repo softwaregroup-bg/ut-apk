@@ -39,9 +39,8 @@ export const defaultState = {
     grid: {
         fields: [
             {title: 'Apk Name', name: 'apkName'},
-            {title: 'Upload Date', name: 'uploadDate'},
-            {title: 'Status', name: 'statusName'},
-            {title: 'Lock', name: 'isSuspended'},
+            {title: 'Upload Date', name: 'createdOn'},
+            {title: 'Status', name: 'statusId'},
             {title: 'Branch', name: 'mappingBranchName'},
             {title: 'Supported Devices', name: 'devices'},
             {title: 'Supported Android Versions', name: 'androidVersions'}

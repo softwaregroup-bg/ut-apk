@@ -1,15 +1,16 @@
 import React from 'react';
-import { Map } from 'immutable';
+import { fromJS,Map } from 'immutable';
 import { textValidations, validationTypes } from 'ut-front-react/validator/constants';
 
 export const config = {
     apkInfo: {
         title: 'APK Info',
         inputs: [
+            { key: 'system', type: 'dropdown', label: 'System', readonly: false, required: true, data: fromJS([{key:'agency',name:'Agency Banking',placeholder:'Agency Banking'}, {key:'dfa',name:'DFA',placeholder:'DFA'}]) },
             { key: 'apkName', type: 'text', label: 'APK Name', readonly: false },
             { key: 'devices', type: 'text', label: 'Devices', readonly: false },
             { key: 'imeis', type: 'text', label: 'IMEIs', readonly: false },
-            { key: 'androidVersions', type: 'text', label: 'Android Versions', readonly: false }
+            { key: 'androidVersions', type: 'text', label: 'Supported Android Versions', readonly: false }
         ]
     }
 };

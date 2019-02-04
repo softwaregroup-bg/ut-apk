@@ -216,23 +216,25 @@ class ApkInfo extends Component {
                       title='Apk Info' >
                         {this.renderInputs(config['apkInfo'].inputs)}
                         {/* this.getValue('account', this.props).map(account => <div>{account.get('accountNumber') + ' -- ' + account.get('currencyName')}</div>) */}
-                        {this.permissions.add && <Dropzone onDrop={this.onDrop}>
+                        {this.permissions.add && 
+                        <LocalTitledContentBox
+                        title='Drop files here, or click to select files' >
+                        <Dropzone 
+                            onDrop={this.onDrop}
+                            accept=".apk"
+                            >
                             {({getRootProps, getInputProps, isDragActive}) => {
                             return (
                                 <div
                                 {...getRootProps()}
-                                className={classNames('dropzone', {'dropzone--isActive': isDragActive})}
                                 >
+                                <Text>Drop files here, or click to select files</Text>
                                 <input {...getInputProps()} />
-                                {
-                                    isDragActive ?
-                                    <h3><Text>Drop apk file here...</Text></h3> :
-                                    <h3><Text>Try dropping an apk file here, or click to select the apk file to upload.</Text></h3>
-                                }
                                 </div>
                             )
                             }}
                         </Dropzone>
+                        </LocalTitledContentBox>
                         }
                     </LocalTitledContentBox>
 

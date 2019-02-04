@@ -48,8 +48,9 @@ class ApksGrid extends Component {
     get sortableColumns() {
         return [
             'apkName',
-            'isSuspended',
-            'mappingBranchName'];
+            'statusId',
+            'createdOn'    
+        ];
     }
 
     handleOrder(order) {
@@ -80,12 +81,6 @@ class ApksGrid extends Component {
         } else {
             if (field.name === 'statusId') {
                 return statusIdToReadableStringMap[value];
-            }
-            if (field.name === 'isSuspended') {
-                if (value) {
-                    return 'Locked';
-                }
-                return 'Unlocked';
             }
         }
         return value;
