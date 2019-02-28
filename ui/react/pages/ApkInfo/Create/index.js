@@ -51,7 +51,7 @@ class ApkCreate extends Component {
 
     handleDialogClose() {
         const { resetApkState, status } = this.props;
-        resetApkState(status.get('status') !== 'failed');
+        resetApkState(false);
         if (this.closeHandler) {
             this.closeHandler();
         }

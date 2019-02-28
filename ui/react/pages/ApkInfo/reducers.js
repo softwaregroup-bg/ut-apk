@@ -163,24 +163,38 @@ function apkInfo(state = DEFAULT_STATE, action) {
             break;
         }
         case actionTypes.SAVE_APK_FILE:
-            if (action.methodRequestState === REQUESTED) {
-                const statusObj = { status: 'pending', message: 'Saving apk file' };
-                return state.setIn([activeTabMode, activeTabId, 'status'], fromJS(statusObj));
-            }
-            if (action.methodRequestState === FINISHED) {
-                if (action.error) {
-                    let errorObj = { status: 'failed', message: action.error && action.error.message };
-                    return state.setIn([activeTabMode, activeTabId, 'status'], fromJS(errorObj));
-                } else {
-                    let statusObj = { status: 'success', message: 'Apk file successfully saved.' };
+            let statusObj = { status: 'pending', message: 'Saving apk file' };
+            return state.setIn([activeTabMode, activeTabId, 'status'], fromJS(statusObj));
+            // if (action.methodRequestState === REQUESTED) {
+            //     const statusObj = { status: 'pending', message: 'Saving apk file' };
+            //     return state.setIn([activeTabMode, activeTabId, 'status'], fromJS(statusObj));
+            // }
+            // if (action.methodRequestState === FINISHED) {
+            //     if (action.error) {
+            //         let errorObj = { status: 'failed', message: action.error && action.error.message };
+            //         return state.setIn([activeTabMode, activeTabId, 'status'], fromJS(errorObj));
+            //     } else {
+            //         let statusObj = { status: 'success', message: 'Apk file successfully saved.' };
 
-                    let cacheId = state.getIn([activeTabMode, activeTabId, 'cacheId']) || 0;
-                    return state
+            //         let cacheId = state.getIn([activeTabMode, activeTabId, 'cacheId']) || 0;
+            //         return state
+            //             .setIn([activeTabMode, activeTabId, 'cacheId'], cacheId + 1)
+            //             .setIn([activeTabMode, activeTabId, 'status'], fromJS(statusObj));
+            //     }
+            // }
+            // break;
+        
+        case actionTypes.SAVED_APK_FILE:{
+            let statusObj = { status: 'success', message: 'Apk file successfully saved.' };
+            let cacheId = state.getIn([activeTabMode, activeTabId, 'cacheId']) || 0;
+            return state
                         .setIn([activeTabMode, activeTabId, 'cacheId'], cacheId + 1)
                         .setIn([activeTabMode, activeTabId, 'status'], fromJS(statusObj));
-                }
-            }
-            break;
+        }
+        case actionTypes.ERROR_APK_FILE: {
+            let errorObj = { status: 'failed', message: action.params.errorMessage };
+            return state.setIn([activeTabMode, activeTabId, 'status'], fromJS(errorObj));
+        }
     }
     return state;
 }

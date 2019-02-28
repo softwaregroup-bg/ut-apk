@@ -1,5 +1,5 @@
 CREATE TABLE [apk].[apk](
-    apkId BIGINT NOT NULL,
+    apkId BIGINT IDENTITY(1,1) NOT NULL,
     apkName NVARCHAR(100) NOT NULL,
     devices NVARCHAR(1000) NULL,
     imeis NVARCHAR(1000) NULL,

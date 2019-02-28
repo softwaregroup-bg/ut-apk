@@ -17,3 +17,5 @@ export const FETCH_ITEMS = Symbol('FETCH_ITEMS');
 // External systems
 export const SET_FIELD = Symbol('SET_FIELD');
 export const SAVE_APK_FILE = Symbol('SAVE_APK_FILE');
+export const SAVED_APK_FILE = Symbol('SAVED_APK_FILE');
+export const ERROR_APK_FILE = Symbol('ERROR_APK_FILE');

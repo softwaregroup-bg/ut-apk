@@ -20,7 +20,17 @@ export const editApkField = ({ key, value, tab, errorMessage }) => ({
 
 export const saveAPKFile = ({content, tab, errorMessage}) => ({
     type: actionTypes.SAVE_APK_FILE,
-    method: 'apk.apk.saveFile',
+    //method: 'apk.apk.saveFile',
+    params: { content, tab, errorMessage }
+});
+
+export const savedAPKFile = ({content, tab, errorMessage}) => ({
+    type: actionTypes.SAVED_APK_FILE,
+    params: { content, tab, errorMessage }
+});
+
+export const errorAPKFile = ({content, tab, errorMessage}) => ({
+    type: actionTypes.ERROR_APK_FILE,
     params: { content, tab, errorMessage }
 });
 

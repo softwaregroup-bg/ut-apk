@@ -15,8 +15,9 @@ import DropdownRenderer from '../../../../components/SelectPopup/DropdownRendere
 import ApkSearch from './ApkSearch';
 import styles from './style.css';
 import { config, getInputValidators } from './config.js';
-import { getApk, editApkField, saveAPKFile } from '../../actions';
+import { getApk, editApkField, saveAPKFile, savedAPKFile, errorAPKFile, setField } from '../../actions';
 import Text from 'ut-front-react/components/Text';
+import { NotificationPower } from 'material-ui/svg-icons';
 
 class ApkInfo extends Component {
     constructor(props, context) {
@@ -28,7 +29,9 @@ class ApkInfo extends Component {
         };
         this.state = {
             isDialogOpen: false,
-            apk: undefined
+            apk: undefined,
+            readyToSend:true,
+            apkUploaded:false
         };
         // Bind the actions
         this.onInputChange = this.onInputChange.bind(this);
@@ -85,9 +88,9 @@ class ApkInfo extends Component {
         return editedData.has(key) ? editedData.get(key) : defaultData.get(key);
     }
 
-    onDropdownChange({ key, value, initValue }) {
+    onDropdownChange({ key, value, initValue, error, errorMessage }) {
         const { editApkField } = this.props;
-        editApkField({ key: key, value: value, tab: this.tab });
+        editApkField({ key: key, value: value, tab: this.tab, errorMessage: error ? errorMessage : '' });
     }
 
     onInputChange({ key, value, initValue, error, errorMessage }) {
@@ -104,29 +107,74 @@ class ApkInfo extends Component {
         const { dropdownData } = this.props;
         return dropdownData.has(key) && dropdownData.get(key).toJS();
     }
+    processFile(file){
+        //Upload file in chunks to improve speed and ensure that large files are also uploaded
+        const { savedAPKFile, editApkField  } = this.props;
+        var size = file.size;
+        var sliceSize = 1024 * 1024 * 10;
+        var start = 0;
+        var self = this;
+        var filename = file.name;
+
+        function slice(file, start, end){
+            var slice = file.mozSlice ? file.mozSlice : file.webkitSlice ? file.webkitSlice : file.slice ? file.slice : noop;
+            return slice.bind(file)(start,end);
+        }
+
+        function noop(){};
+    
+
+        setTimeout(loop,1);
+        function loop(){
+            if(self.state.readyToSend){
+                self.setState({ readyToSend: false });
+                var end = start + sliceSize;
+                if(size - end < 0){
+                    end = size;
+                }
+                var s = slice(file, start, end);
+                self.send(s, start, end, size, filename);
+                if(end < size){
+                    start += sliceSize;
+                    setTimeout(loop, 1);
+                }else{
+                    self.setState({ apkUploaded: true });
+                    savedAPKFile({content: '', tab: this.tab});
+                    editApkField({ key: 'apkSize', value: size, tab: self.tab, errorMessage : '' });
+                    editApkField({ key: 'apkName', value: filename, tab: self.tab, errorMessage : '' });
+                }
+            }else{
+                setTimeout(loop, 1);
+            }
+        }
+    }
+
+    send(piece, start, end, size, filename){
+        var self = this;
+        var formData = new FormData();
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST','/apk/apk-upload');
+        formData.append('start',start);
+        formData.append('end',end);
+        formData.append('file',piece);
+        formData.append('filename',filename);
+        formData.append('size',size);
+        xhr.onreadystatechange = function() {
+            if (this.status == 200) {
+                self.setState({ readyToSend: true });
+            }
+          };
+        xhr.send(formData);
+    }
 
     onDrop(acceptedFiles,rejectedFiles){
         //Get the file name, size and content and create the file in the root folder
-        const { editApkField, saveAPKFile } = this.props;
+        const {saveAPKFile} = this.props;
+        var self = this;
         acceptedFiles.forEach((apkFile,index) => {
             if(index === 0){
-                let value = {
-                    name : apkFile.name,
-                    path: apkFile.path,
-                    size: apkFile.size
-                }
-                editApkField({ key: 'apkFile', value: value, tab: this.tab });
-                //Save the apk
-                const reader = new FileReader();
-                reader.onload = () => {
-                    const fileAsBinaryString = reader.result;
-                    // do whatever you want with the file content
-                    saveAPKFile(fileAsBinaryString);
-                };
-                reader.onabort = () => console.log('file reading was aborted');
-                reader.onerror = () => console.log('file reading has failed');
-
-                reader.readAsBinaryString(apkFile);
+                saveAPKFile({content: '', tab: this.tab});
+                self.processFile(apkFile);
             }
         });
     }
@@ -202,6 +250,7 @@ class ApkInfo extends Component {
 
     render() {
         const { defaultData, editedData } = this.props;
+        const {apkUploaded} = this.state;
         const apkName = (editedData.has('apkName') ? editedData.get('apkName') : defaultData.get('apkName')) || 'Select';
         const readonly = this.getInputsReadonlyStatus();
 
@@ -216,7 +265,7 @@ class ApkInfo extends Component {
                       title='Apk Info' >
                         {this.renderInputs(config['apkInfo'].inputs)}
                         {/* this.getValue('account', this.props).map(account => <div>{account.get('accountNumber') + ' -- ' + account.get('currencyName')}</div>) */}
-                        {this.permissions.add && 
+                        {!apkUploaded && this.permissions.add && 
                         <LocalTitledContentBox
                         title='Drop files here, or click to select files' >
                         <Dropzone 
@@ -285,6 +334,9 @@ export default connect(
     }, {
         getApk,
         editApkField,
-        saveAPKFile
+        saveAPKFile,
+        savedAPKFile,
+        errorAPKFile,
+        setField
     }
 )(ApkInfo);
