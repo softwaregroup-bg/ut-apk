@@ -72,6 +72,7 @@ AS
           mappingBranchId BIGINT,
           devices NVARCHAR(1000),
           androidVersions NVARCHAR(1000),
+          systemId BIGINT,
           rowNum int, recordsTotal int)
 
 
@@ -87,6 +88,7 @@ AS
             mappingBranchId,
             devices,
             androidVersions,
+            systemId,
             ROW_NUMBER() OVER(ORDER BY
                             CASE WHEN @sortOrder = 'ASC' THEN
                                 CASE
@@ -118,7 +120,8 @@ AS
                 mappingBranchName,
                 mappingBranchId,
                 devices,
-                androidVersions
+                androidVersions,
+                systemId
             FROM  apk.apk ap
             WHERE
                 ( @statusId IS NULL OR ap.statusId = @statusId ) AND
@@ -127,15 +130,15 @@ AS
         ) a
     )
 
-    INSERT INTO #Apk( apkId ,apkName, statusId, createdOn,updatedOn, mappingBranchName, mappingBranchId, devices, androidVersions, rowNum, recordsTotal)
-    SELECT apkId ,apkName, statusId, createdOn, updatedOn, mappingBranchName, mappingBranchId, devices, androidVersions, rowNum, recordsTotal
+    INSERT INTO #Apk( apkId ,apkName, statusId, createdOn,updatedOn, mappingBranchName, mappingBranchId, devices, androidVersions,systemId, rowNum, recordsTotal)
+    SELECT apkId ,apkName, statusId, createdOn, updatedOn, mappingBranchName, mappingBranchId, devices, androidVersions,systemId, rowNum, recordsTotal
     FROM CTE
     WHERE rowNum BETWEEN @startRow AND  @endRow
 
 
     SELECT 'apk' AS resultSetName
 
-    SELECT apkId ,apkName, statusId, CONVERT(varchar, createdOn, 0) as createdOn, CONVERT(varchar, updatedOn, 0) as updatedOn, mappingBranchName, mappingBranchId, devices, androidVersions
+    SELECT apkId ,apkName, statusId, CONVERT(varchar, createdOn, 0) as createdOn, CONVERT(varchar, updatedOn, 0) as updatedOn, mappingBranchName, mappingBranchId, devices, androidVersions,systemId
     FROM #Apk a
     ORDER BY rowNum
 

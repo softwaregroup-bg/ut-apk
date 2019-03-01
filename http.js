@@ -1,6 +1,6 @@
 var path = require('path');
 var fs = require('fs');
-var streams = {};
+var url = require('url'); 
 var bus;
 
 module.exports = {
@@ -89,6 +89,47 @@ module.exports = {
                             statusCode: 500,
                             message: 'No apk file provided'
                         }));
+                    }
+                }
+            }
+        },{
+            method: 'GET',
+            path: '/apk/apk-download',
+            config: {
+                auth:false,
+                handler: (request, reply) => {
+                    let param = url.parse(request.url).query; 
+                    var dir = path.join(bus.config.workDir, 'uploads','apks');
+                    var filePath;
+                    var files = fs.readdirSync(dir);
+                    var apkName = param.apkName;
+                    var md5apkName = require('crypto').createHash('md5').update(apkName).digest("hex");
+                    var apkFound = false;
+                    files.forEach(function (file, index) {
+                        var fileName = require('crypto').createHash('md5').update(file).digest("hex");
+                        if (fileName == md5apkName) {
+                            apkFound = true;
+                            filePath = path.join(dir, apkName);
+                        }
+                    });
+                    if (apkFound) {
+                        return fs.readFile(filePath, 'utf8', function (err, data) {
+                            if (err) throw err;
+                            reply(data)
+                            .header('Content-Type', 'application/octet-stream')
+                            .header('Content-Disposition', `attachment; filename="${apkName}"`)
+                            .header('Content-Transfer-Encoding', 'binary');
+                        });
+                        
+                    } else {
+                        let obj = { jsonrpc: "2.0", id: "3", error: {} };
+                        obj.error = {
+                            code: -1,
+                            message: "APK not found",
+                            errorPrint: "APK not found",
+                            type: "DownloadError"
+                        }
+                        reply(obj);
                     }
                 }
             }
