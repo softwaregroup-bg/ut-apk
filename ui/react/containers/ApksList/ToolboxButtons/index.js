@@ -8,18 +8,28 @@ import Text from 'ut-front-react/components/Text';
 import ConfirmDialog from 'ut-front-react/components/ConfirmDialog';
 import { getLink } from 'ut-front/react/routerHelper';
 
-import { lockApk, deleteApk } from '../../../pages/ApkList/actions';
+import { lockApk, deleteApk, approveApk } from '../../../pages/ApkList/actions';
 import style from './style.css';
 
 class ToolboxButtons extends Component {
     constructor(props, context) {
         super(props, context);
+        this.state = {
+            statusToSet : ''
+        }
         this.permissions = {
+            approve: context.checkPermission('apk.apk.approve'),
             lock: context.checkPermission('apk.suspendStatus.edit'),
             delete: context.checkPermission('apk.apk.delete')
         };
         this.getPrimaryActionButton = this.getPrimaryActionButton.bind(this);
         this.getLockButton = this.getLockButton.bind(this);
+        this.getApproveButton = this.getApproveButton.bind(this);
+    }
+
+    componentWillMount(){
+        let { selected } = this.props;
+        this.setState({statusToSet: selected.get('statusId') === 'locked' ? 'pending' : 'locked'});
     }
 
     getPrimaryActionButton() {
@@ -54,13 +64,33 @@ class ToolboxButtons extends Component {
         }
     }
 
+    getApproveButton() {
+        const { selected } = this.props;
+
+        const canApprove = this.permissions.approve;
+        const isButtonEnabled = !!(canApprove && selected.size);
+        const className = isButtonEnabled ? style.statusActionButton : style.statusActionButtonDisabled;
+
+        const handleButtonClick = () => {
+            this.refs['confirmDialog-approve'].open();
+        };
+
+        return (
+            <Button
+              className={classnames('button', className)}
+              onClick={handleButtonClick}
+              disabled={!isButtonEnabled}>
+              <Text>Approve</Text>
+            </Button>
+        );
+    }
+
     getLockButton() {
         const { selected } = this.props;
 
         const canLock = this.permissions.lock;
         const byParent = selected.get('isSuspended') && selected.get('suspender') !== selected.get('apkId');
-        const label = selected.get('isSuspended') ? 'Unlock' : 'Lock';
-
+        const label = selected.get('statusId') === 'locked' ? 'Unlock' : 'Lock';
         const isButtonEnabled = !!(canLock && selected.size && !byParent);
         const className = isButtonEnabled ? style.statusActionButton : style.statusActionButtonDisabled;
 
@@ -102,17 +132,27 @@ class ToolboxButtons extends Component {
         const primaryActionButton = this.getPrimaryActionButton();
         const lockButton = this.getLockButton();
         const deleteButton = this.getDeleteButton();
-        const { selected, lockApk, deleteApk } = this.props;
+        const approveButton = this.getApproveButton();
+        const { selected, lockApk, deleteApk, approveApk } = this.props;
+        const {statusToSet} = this.state;
 
         return (
             <div>
+                <ConfirmDialog
+                  ref={'confirmDialog-approve'}
+                  cancelLabel={'No'}
+                  submitLabel={'Yes'}
+                  title={'Confirm'}
+                  message={'Are you sure that you want to approve the selected apk?'}
+                  onSubmit={() => { approveApk(selected && selected.get('apkId')); }}
+                />
                 <ConfirmDialog
                   ref={'confirmDialog-lock'}
                   cancelLabel={'No'}
                   submitLabel={'Yes'}
                   title={'Confirm'}
                   message={'Are you sure that you want to change the lock status of the selected apk?'}
-                  onSubmit={() => { lockApk(selected); }}
+                  onSubmit={() => { lockApk(selected && selected.get('apkId'), statusToSet); }}
                 />
                 <ConfirmDialog
                   ref={'confirmDialog-delete'}
@@ -123,6 +163,8 @@ class ToolboxButtons extends Component {
                   onSubmit={() => { deleteApk(selected && selected.get('apkId')); }}
                 />
                 <div className={style.actionStatusButtonWrap}>{primaryActionButton}</div>
+                <div className={style.actionStatusButtonPad} />
+                <div className={style.actionStatusButtonWrap}>{approveButton}</div>
                 <div className={style.actionStatusButtonPad} />
                 <div className={style.actionStatusButtonWrap}>{lockButton}</div>
                 <div className={style.actionStatusButtonPad} />
@@ -135,7 +177,8 @@ class ToolboxButtons extends Component {
 ToolboxButtons.propTypes = {
     selected: PropTypes.object.isRequired, // immutable
     lockApk: PropTypes.func.isRequired,
-    deleteApk: PropTypes.func.isRequired
+    deleteApk: PropTypes.func.isRequired,
+    approveApk: PropTypes.func.isRequired
 };
 
 ToolboxButtons.contextTypes = {
@@ -148,5 +191,5 @@ export default connect(
             selected: apksList.get('selected')
         };
     },
-    { lockApk, deleteApk }
+    { lockApk, deleteApk, approveApk }
 )(ToolboxButtons);

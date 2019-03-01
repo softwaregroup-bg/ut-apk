@@ -19,6 +19,8 @@ export function apksList(state = defaultState, action) {
             return apksListReducers.lockApk(state, action);
         case actionTypes.DELETE_APK:
             return apksListReducers.deleteApk(state, action);
+        case actionTypes.APPROVE_APK:
+            return apksListReducers.approveApk(state, action);
         case actionTypes.SET_VISIBLE_COLUMNS:
             return apksListReducers.setVisibleColumns(state, action);
         case actionTypes.TOGGLE_COLUMN_VISIBILITY:

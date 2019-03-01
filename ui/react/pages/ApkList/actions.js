@@ -62,23 +62,33 @@ export function activateApk(apk) {
     };
 }
 
-export function lockApk(apk) {
+export function lockApk(apkId, status) {
     return {
         type: actionTypes.LOCK_APK,
         method: 'apk.suspendStatus.edit',
         params: {
-            actorId: apk.get('actorId'),
-            isSuspended: !apk.get('isSuspended') ? 1 : 0
+            apkId,
+            status
         }
     };
 }
 
-export function deleteApk(actorId) {
+export function deleteApk(apkId) {
     return {
         type: actionTypes.DELETE_APK,
         method: 'apk.apk.delete',
         params: {
-            actorId
+            apkId
+        }
+    };
+}
+
+export function approveApk(apkId) {
+    return {
+        type: actionTypes.APPROVE_APK,
+        method: 'apk.apk.approve',
+        params: {
+            apkId
         }
     };
 }

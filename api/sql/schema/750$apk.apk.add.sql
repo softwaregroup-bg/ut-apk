@@ -4,11 +4,11 @@ ALTER PROCEDURE [apk].[apk.add] -- adds an apk with provided parameters
     @noResultSet bit = 0 -- a flag to show if result is expected
 AS
 DECLARE @callParams XML
-DECLARE @userId BIGINT = (SELECT [auth.actorId] FROM @meta) -- the id of the user adding the customer
+DECLARE @userId BIGINT = (SELECT [auth.actorId] FROM @meta) -- the id of the user adding the apk
 DECLARE @today datetime2(0) = SYSDATETIMEOFFSET()
 
 BEGIN TRY
-    -- checks if the user has a right to add customers
+    -- checks if the user has a right to add apks
     DECLARE @actionID varchar(100) =  OBJECT_SCHEMA_NAME(@@PROCID) + '.' +  OBJECT_NAME(@@PROCID), @return INT = 0
     EXEC @return = [user].[permission.check] @actionId =  @actionID, @objectId = null, @meta = @meta
     IF @return != 0

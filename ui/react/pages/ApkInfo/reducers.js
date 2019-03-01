@@ -15,19 +15,20 @@ const editPropertyMapping = {
 };
 
 const parseApkData = apkGetResult => {
-    const apkId = apkGetResult.getIn(['apk', 0, 'apkId']);
-    const apkName = apkGetResult.getIn(['apk', 0, 'apkName']);
-    const devices = apkGetResult.get('apk', 0, 'devices');
-    const imeis = apkGetResult.get('apk', 0, 'imeis');
-    const androidVersions = apkGetResult.get('androidVersion', 0, 'androidVersions');
-    const apkFileName = apkGetResult.getIn(['apk', 0, 'apkFileName']);
-    const apkSize = apkGetResult.getIn(['apk', 0, 'apkSize']);
+    const apkId = apkGetResult.getIn(['apkId']);
+    const apkName = apkGetResult.getIn(['apkName']);
+    const devices = apkGetResult.get('devices');
+    const imeis = apkGetResult.get('imeis');
+    const androidVersions = apkGetResult.get('androidVersions');
+    const apkFileName = apkGetResult.getIn(['apkFileName']);
+    const apkSize = apkGetResult.getIn(['apkSize']);
+    const system = apkGetResult.getIn(['systemId']);
 
-    const organizationId = apkGetResult.getIn(['apk', 0, 'organizationId']);
-    const organizationName = apkGetResult.getIn(['apk', 0, 'organizationName']);
+    const organizationId = apkGetResult.getIn(['organizationId']);
+    const organizationName = apkGetResult.getIn(['organizationName']);
 
-    const mappingBranchId = apkGetResult.getIn(['apk', 0, 'mappingBranchId'], organizationId);
-    const mappingBranchName = apkGetResult.getIn(['apk', 0, 'mappingBranchName'], organizationName);
+    const mappingBranchId = apkGetResult.getIn(['mappingBranchId'], organizationId);
+    const mappingBranchName = apkGetResult.getIn(['mappingBranchName'], organizationName);
     const visibleFor = [];
     if (mappingBranchId) {
         visibleFor.push({
@@ -44,7 +45,8 @@ const parseApkData = apkGetResult => {
         androidVersions,
         mappingBranchId,
         apkFileName,
-        apkSize
+        apkSize,
+        system
     });
 };
 
@@ -60,7 +62,7 @@ function apkInfo(state = DEFAULT_STATE, action) {
             }));
         case actionTypes.GET_APK:
             if (action.methodRequestState === FINISHED && !action.error) {
-                const apkData = fromJS(action.result);
+                const apkData = fromJS(action.result.apk);
                 return state
                     .updateIn(
                         [activeTabMode, activeTabId, 'data', 'apkInfo'],

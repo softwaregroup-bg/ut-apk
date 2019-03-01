@@ -10,7 +10,7 @@ const windowLocalStoragePropKeyColsVisible = 'apksGrid-columns-visible';
 const windowLocalStoragePropKeyColsHidden = 'apksGrid-columns-hidden';
 
 const parseApks = function(apks) {
-    return apks.map((apks) => {
+    return apks.map((apk) => {
         return {
             ...apk,
             url: getLink('ut-apk:apkEdit', {id: apk.apkId})
@@ -95,6 +95,15 @@ export function lockApk(state, action) {
 };
 
 export function deleteApk(state, action) {
+    if (action.methodRequestState === FINISHED && !action.error) {
+        return state
+            .set('selected', new Map())
+            .set('requiresFetch', true);
+    }
+    return state;
+};
+
+export function approveApk(state, action) {
     if (action.methodRequestState === FINISHED && !action.error) {
         return state
             .set('selected', new Map())

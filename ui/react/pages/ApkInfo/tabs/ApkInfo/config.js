@@ -6,7 +6,7 @@ export const config = {
     apkInfo: {
         title: 'APK Info',
         inputs: [
-            { key: 'system', type: 'dropdown', label: 'System', readonly: false, required: true, data: [{key:1,name:'Agency Banking'}, {key:2,name:'DFA'}] },
+            { key: 'system', type: 'dropdown', label: 'System', readonly: false, required: true, data: [{key:"1",name:'Agency Banking'}, {key:"2",name:'DFA'}] },
             { key: 'apkName', type: 'text', label: 'APK Name', readonly: true },
             { key: 'apkSize', type: 'text', label: 'APK size', readonly: true },
             { key: 'devices', type: 'text', label: 'Devices', readonly: false },

@@ -39,11 +39,13 @@ export const defaultState = {
     grid: {
         fields: [
             {title: 'Apk Name', name: 'apkName'},
-            {title: 'Upload Date', name: 'createdOn'},
+            {title: 'Uploadod On', name: 'createdOn'},
+            {title:'Updated On', name:'updatedOn'},
             {title: 'Status', name: 'statusId'},
-            {title: 'Branch', name: 'mappingBranchName'},
+            //{title: 'Branch', name: 'mappingBranchName'},
             {title: 'Supported Devices', name: 'devices'},
-            {title: 'Supported Android Versions', name: 'androidVersions'}
+            {title: 'Supported Android Versions', name: 'androidVersions'},
+            {title: 'Link', name: 'link'}
         ],
         checkedRows: []
     },

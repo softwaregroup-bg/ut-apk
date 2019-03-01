@@ -37,7 +37,11 @@ module.exports = {
                     var end = Number(request.payload.end);
                     var totalSize = Number(request.payload.size);
                     if (file) {
-                        var filePath = path.join(bus.config.workDir, 'uploads','apks',fileName);
+                        var dir = path.join(bus.config.workDir, 'uploads','apks');
+                        if (!fs.existsSync(dir)){
+                                fs.mkdirSync(dir);
+                        }
+                        var filePath = path.join(dir,fileName);
                         var size = 0;
                         return Promise.resolve()
                         .then(function(){

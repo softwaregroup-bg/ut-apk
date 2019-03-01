@@ -249,7 +249,7 @@ class ApkInfo extends Component {
     }
 
     render() {
-        const { defaultData, editedData } = this.props;
+        const { defaultData, editedData, mode } = this.props;
         const {apkUploaded} = this.state;
         const apkName = (editedData.has('apkName') ? editedData.get('apkName') : defaultData.get('apkName')) || 'Select';
         const readonly = this.getInputsReadonlyStatus();
@@ -265,7 +265,7 @@ class ApkInfo extends Component {
                       title='Apk Info' >
                         {this.renderInputs(config['apkInfo'].inputs)}
                         {/* this.getValue('account', this.props).map(account => <div>{account.get('accountNumber') + ' -- ' + account.get('currencyName')}</div>) */}
-                        {!apkUploaded && this.permissions.add && 
+                        {!apkUploaded && mode !== 'edit' && this.permissions.add && 
                         <LocalTitledContentBox
                         title='Drop files here, or click to select files' >
                         <Dropzone 

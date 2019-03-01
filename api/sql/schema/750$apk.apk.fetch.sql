@@ -67,6 +67,7 @@ AS
           apkName NVARCHAR(200),
           statusId NVARCHAR(200) ,
           createdOn DATETIME,
+		  updatedOn DATETIME,
           mappingBranchName NVARCHAR(100),
           mappingBranchId BIGINT,
           devices NVARCHAR(1000),
@@ -81,6 +82,7 @@ AS
             apkName,
             statusId,
             createdOn,
+            updatedOn,
             mappingBranchName,
             mappingBranchId,
             devices,
@@ -91,6 +93,7 @@ AS
                                     WHEN @sortBy = 'apkName' THEN a.apkName
                                     WHEN @sortBy = 'statusId' THEN a.statusId
                                     WHEN @sortBy = 'createdOn' THEN a.createdOn
+									WHEN @sortBy = 'updatedOn' THEN a.updatedOn
                                     WHEN @sortBy = 'apkId' THEN convert(nvarchar(100),apkId)
                                 END
                             END,
@@ -99,6 +102,7 @@ AS
                                     WHEN @sortBy = 'apkName' THEN a.apkName
                                     WHEN @sortBy = 'statusId' THEN a.statusId
                                     WHEN @sortBy = 'createdOn' THEN a.createdOn
+									WHEN @sortBy = 'updatedOn' THEN a.updatedOn
                                     WHEN @sortBy = 'apkId' THEN convert(nvarchar(100),apkId)
                                 END
                             END DESC) rowNum,
@@ -110,6 +114,7 @@ AS
                 apkName,
                 statusId,
                 createdOn,
+                updatedOn,
                 mappingBranchName,
                 mappingBranchId,
                 devices,
@@ -122,15 +127,15 @@ AS
         ) a
     )
 
-    INSERT INTO #Apk( apkId ,apkName, statusId, createdOn, mappingBranchName, mappingBranchId, devices, androidVersions, rowNum, recordsTotal)
-    SELECT apkId ,apkName, statusId, createdOn, mappingBranchName, mappingBranchId, devices, androidVersions, rowNum, recordsTotal
+    INSERT INTO #Apk( apkId ,apkName, statusId, createdOn,updatedOn, mappingBranchName, mappingBranchId, devices, androidVersions, rowNum, recordsTotal)
+    SELECT apkId ,apkName, statusId, createdOn, updatedOn, mappingBranchName, mappingBranchId, devices, androidVersions, rowNum, recordsTotal
     FROM CTE
     WHERE rowNum BETWEEN @startRow AND  @endRow
 
 
     SELECT 'apk' AS resultSetName
 
-    SELECT apkId ,apkName, statusId, createdOn, mappingBranchName, mappingBranchId, devices, androidVersions
+    SELECT apkId ,apkName, statusId, CONVERT(varchar, createdOn, 0) as createdOn, CONVERT(varchar, updatedOn, 0) as updatedOn, mappingBranchName, mappingBranchId, devices, androidVersions
     FROM #Apk a
     ORDER BY rowNum
 
